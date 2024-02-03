@@ -1,0 +1,39 @@
+{
+	"schemaVersion": 1,
+	"id": "text_hotkey",
+	"version": "${version}",
+	"name": "Text_Hotkey",
+	"description": "Allows you to execute commands from hotkey",
+	"authors": [
+		"MrQuba"
+	],
+	"contact": {
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/text_hotkey/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"net.mrquba.texthotkey.Text_Hotkey"
+		],
+		"client": [
+			"net.mrquba.texthotkey.Text_HotkeyClient"
+		],
+		"fabric-datagen": [
+			"net.mrquba.texthotkey.Text_HotkeyDataGenerator"
+		]
+	},
+	"mixins": [
+		"text_hotkey.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.15.6",
+		"minecraft": "~1.20",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
