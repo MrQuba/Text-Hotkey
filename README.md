@@ -1,5 +1,3 @@
-# Warning
-## It does not have support for executing commands via key press, it'll be added in future release 
 # Text-Hotkey
 Minecraft mod that allows for execution of commands / sending messages through hotkey 
 # Usage
