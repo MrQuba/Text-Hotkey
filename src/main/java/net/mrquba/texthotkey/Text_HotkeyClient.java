@@ -1,5 +1,6 @@
 package net.mrquba.texthotkey;
 
+import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.ParseResults;
 import com.mojang.brigadier.context.CommandContext;
@@ -13,16 +14,20 @@ import net.minecraft.client.network.ClientCommandSource;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.command.CommandSource;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.network.packet.c2s.play.ChatMessageC2SPacket;
 import net.minecraft.text.Text;
+import net.minecraft.world.World;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.Objects;
 
 import static net.fabricmc.fabric.impl.command.client.ClientCommandInternals.executeCommand;
+import static net.fabricmc.fabric.impl.command.client.ClientCommandInternals.getActiveDispatcher;
+import static net.mrquba.texthotkey.Text_Hotkey.command_value;
 
 public class Text_HotkeyClient implements ClientModInitializer{
 
@@ -39,13 +44,16 @@ public class Text_HotkeyClient implements ClientModInitializer{
             assert client.player != null;
 
             while (keyBinding.wasPressed()) {
-                String message = Text_Hotkey.command_value;
+                String message = command_value;
 
                 if (message.startsWith("/")) {
-
+                    String command_message = message.substring(1);
+                    assert MinecraftClient.getInstance().player != null;
+                    MinecraftClient.getInstance().player.networkHandler.sendChatCommand(command_message);
                 }
                 else {
-                    client.player.sendMessage(Text.literal(message), false);
+                    assert MinecraftClient.getInstance().player != null;
+                    MinecraftClient.getInstance().player.networkHandler.sendChatMessage(message);
                 }
             }
         });
